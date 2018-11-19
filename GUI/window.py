@@ -30,12 +30,3 @@ class GameBoard(tkinter.Tk):
         self._canvas = tkinter.Canvas(self, height= 600, width = 400, bg ="black", highlightthickness=0)
         self._canvas.pack()
 
-
-def main():
-    plot_game = True
-
-    game_class = GameBoard()
-    if plot_game:
-        game_class.mainloop()
-if __name__ == '__main__':
-    main()
