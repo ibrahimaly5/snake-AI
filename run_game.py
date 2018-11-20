@@ -5,7 +5,7 @@ def main():
 
     game_class = GameBoard()
     if plot_game:
-        game_class.mainloop()
+        game_class.run_board()
 
 
 
