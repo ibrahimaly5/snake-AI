@@ -14,3 +14,6 @@ Depending on how quickly we'll finish creating the actual game mechanics, the pr
 One of the harder tasks will be getting the computer to control the snake (probably?)
 
 The main focus will be to train the computer to play python using either a Greedy/Hamilton algorithm depending on the time we will put into it, once we get all the aforementioned steps done, we will write our own greedy algorithm for that.
+
+Progress so far:
+Created background, key bindings, and food
