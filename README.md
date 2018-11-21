@@ -21,10 +21,15 @@ Created background, key bindings, and food
 Goals by the end of the week (21 Nov 18):
 Build snake and game physics around it. This will include how to actually design the snake, program snake collisions with food, walls, and itself. Program snake's movements per second, what happens when it turns right, left, etc. generating more food as it's being eaten and figure out what the most efficient way of generating a new position for the food is, and start the game.
 
-# In a list :
-  -create snake
-  -create snake collision physics
-  -create snake movements
+In a list :
+
+
+-create snake
+
+-create snake collision physics
+
+-create snake movements
+
 
 Goals for next week (30 Nov 18):
 Create a button for either a human playing the game or AI playing the game, will create two separate classes for it. Start looking into the algorithms for the AI playing the game.
