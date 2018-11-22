@@ -1,5 +1,6 @@
 from GUI.window import GameBoard
 import random
+from time import sleep
 
 def main():
     plot_game = True
@@ -11,4 +12,6 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    while True:
+        main()
+        sleep(5)
