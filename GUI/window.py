@@ -97,12 +97,23 @@ class GameBoard(tkinter.Tk):
     
     def create_snake(self):
 
-        self.headX = 0
-        self.headY = 0
+        self.headX = 15 * 25 
+        self.headY = 8 * 25
+
+        self.snake_parts = [[15*25,9*25],[15*25,10*25]]
+
 
         self._canvas.create_rectangle(self.headX, 
             self.headY, (self.headX+25), 
             (self.headY+25), fill="green")
+
+        for i in range(len(self.snake_parts)):
+            self._canvas.create_rectangle(
+                self.snake_parts[i][0], 
+                self.snake_parts[i][1],
+                self.snake_parts[i][0]+25,
+                self.snake_parts[i][1]+25,
+                fill= "green")
 
     def move_snake(self):
         pass
