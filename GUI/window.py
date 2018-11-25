@@ -10,6 +10,7 @@ class GameBoard(tkinter.Tk):
 
         self.food_exists = False
         self.snake_dir = "up"
+        self.snake_parts = [None,None,None]
         
 
         self.init_bkg()
@@ -23,7 +24,9 @@ class GameBoard(tkinter.Tk):
         
         self.create_snake()
 
-        self.init_directions()        
+        self.init_directions()
+
+        self.move_snake()        
 
 
     def init_bkg(self):
@@ -66,7 +69,7 @@ class GameBoard(tkinter.Tk):
     def turn_up(self,event):
         if (self.snake_dir=="left" or self.snake_dir=="right"):
             self.snake_dir = "up"
-            #self.snakeY += 1
+            self.headY += 25
             print("pressed", repr(event.char))
 
         else: pass
@@ -74,7 +77,7 @@ class GameBoard(tkinter.Tk):
     def turn_down(self,event):
         if (self.snake_dir=="left" or self.snake_dir=="right"):
             self.snake_dir = "down"
-            #self.snakeY -= 1
+            self.headY -= 25
             print("pressed", repr(event.char))
 
         else: pass
@@ -82,7 +85,7 @@ class GameBoard(tkinter.Tk):
     def turn_right(self,event):
         if (self.snake_dir=="up" or self.snake_dir=="down"):
             self.snake_dir = "right"
-            #self.snakeX += 1
+            self.headX += 25
             print("pressed", repr(event.char))
 
         else: pass
@@ -90,7 +93,7 @@ class GameBoard(tkinter.Tk):
     def turn_left(self,event):
         if (self.snake_dir=="up" or self.snake_dir=="down"):
             self.snake_dir = "left"
-            #self.snakeX -= 1
+            self.headX -= 25
             print("pressed", repr(event.char))
 
         else: pass
@@ -100,23 +103,34 @@ class GameBoard(tkinter.Tk):
         self.headX = 15 * 25 
         self.headY = 8 * 25
 
-        self.snake_parts = [[15*25,9*25],[15*25,10*25]]
+        self.snake_coords = [[15*25,9*25],[15*25,10*25]]
 
 
-        self._canvas.create_rectangle(self.headX, 
+        self.head = self._canvas.create_rectangle(self.headX, 
             self.headY, (self.headX+25), 
             (self.headY+25), fill="green")
 
-        for i in range(len(self.snake_parts)):
-            self._canvas.create_rectangle(
-                self.snake_parts[i][0], 
-                self.snake_parts[i][1],
-                self.snake_parts[i][0]+25,
-                self.snake_parts[i][1]+25,
+
+        for i in range(len(self.snake_coords)):
+            self.snake_parts[i] = self._canvas.create_rectangle(
+                self.snake_coords[i][0], 
+                self.snake_coords[i][1],
+                self.snake_coords[i][0]+25,
+                self.snake_coords[i][1]+25,
                 fill= "green")
 
     def move_snake(self):
-        pass
+        for i in range(len(self.snake_parts)):
+            if i == 0:
+                self._canvas.move(self.snake_parts[i],
+                    self.headX, self.headY)
+            else:
+                self._canvas.move(self.snake_parts[i],
+                    self.snake_coords[i-1][0],
+                    self.snake_coords[i-1][1])
+
+        self._canvas.move(self.head, self.headX, self.headY)
+
     def grow_snake(self):
         pass
 
