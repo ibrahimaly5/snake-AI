@@ -8,7 +8,6 @@ class GameBoard(tkinter.Tk):
     def __init__(self):
         tkinter.Tk.__init__(self)
 
-        self.food_exists = False
         self.snake_dir = "up"
         self.snake_parts = [None,None,None]
         
@@ -17,8 +16,7 @@ class GameBoard(tkinter.Tk):
         
         self.init_canvas()
 
-        if not self.food_exists:
-           self.generate_food()
+        self.generate_food()
 
         self.create_snake()
         self._canvas.pack()
@@ -39,6 +37,12 @@ class GameBoard(tkinter.Tk):
 
 
     def generate_food(self):
+        '''
+        if (self.food_x == self.headX) and (self.food_y == self.headY):
+            pass
+        else:
+            for i in range()
+        '''
         self.food_x = 25*random.randint(0,23)
         self.food_y = 25*random.randint(0,15)
 
@@ -49,12 +53,11 @@ class GameBoard(tkinter.Tk):
         while check_food_collision(self.food_y):
             self._canvas.food_y = 400 * random.random()
         '''
-        self._canvas.create_rectangle(self.food_x, 
+        self.food = self._canvas.create_rectangle(self.food_x, 
             self.food_y, (self.food_x+25), 
             (self.food_y+25), fill="light green")
 
 
-        self.food_exists = True
 
         
     def init_directions(self):
@@ -68,7 +71,8 @@ class GameBoard(tkinter.Tk):
         if (self.snake_dir=="left" or self.snake_dir=="right"):
             self.snake_dir = "up"
             self.tempY = self.tempY - 25
-            print("pressed", repr(event.char))
+            
+
             self.move_snake()        
 
         else: pass
@@ -77,7 +81,7 @@ class GameBoard(tkinter.Tk):
         if (self.snake_dir=="left" or self.snake_dir=="right"):
             self.snake_dir = "down"
             self.tempY = self.tempY + 25
-            print("pressed", repr(event.char))
+
             self.move_snake()        
 
         else: pass
@@ -86,7 +90,7 @@ class GameBoard(tkinter.Tk):
         if (self.snake_dir=="up" or self.snake_dir=="down"):
             self.snake_dir = "right"
             self.tempX = self.tempX + 25
-            print("pressed", repr(event.char))
+
             self.move_snake()        
         else: pass
         
@@ -94,7 +98,7 @@ class GameBoard(tkinter.Tk):
         if (self.snake_dir=="up" or self.snake_dir=="down"):
             self.snake_dir = "left"
             self.tempX = self.tempX - 25
-            print("pressed", repr(event.char))
+
             self.move_snake()        
         else: pass
     
@@ -125,6 +129,7 @@ class GameBoard(tkinter.Tk):
 
     def move_snake(self):
 
+
         self._canvas.move(self.head, 
             self.tempX - (self.headX), self.tempY - (self.headY))
 
@@ -132,23 +137,36 @@ class GameBoard(tkinter.Tk):
         for i in range(len(self.snake_coords)):
             if i == 0:
                 self._canvas.move(self.snake_parts[i],
-                    self.headX, self.headY)
+                    self.headX - (self.snake_coords[i][0]), 
+                    self.headY - (self.snake_coords[i][1]))
             else:
                 self._canvas.move(self.snake_parts[i],
-                    self.snake_coords[i-1][0]-self.snake_coords[i][0],
-                    self.snake_coords[i-1][1]-self.snake_coords[i][1])
-
-        self._canvas.move(self.head, self.tempX - self.headX,
-        self.tempY - self.headY)
+                    self.snake_coords[i-1][0]-(self.snake_coords[i][0]),
+                    self.snake_coords[i-1][1]-(self.snake_coords[i][1]))
         '''
-
         self.headX = self.tempX
         self.headY = self.tempY
+
+        old_length = len(self.snake_coords)
+
+        if (self.headX == self.food_x) and (self.headY == self.food_y):
+
+            self._canvas.delete(self.food)
+
+            self.snake_coords.append(self.snake_coords[old_length-1])
+
+            self.snake_parts[old_length] = self._canvas.create_rectangle(
+                self.snake_coords[old_length][0], 
+                self.snake_coords[old_length][1],
+                self.snake_coords[old_length][0]+25,
+                self.snake_coords[old_length][1]+25,
+                fill= "green")
+
+            self.generate_food()
+
+
         self._canvas.pack()        
 
-
-    def grow_snake(self):
-        pass
 
     def exit_game(self,event):
         self.destroy()
