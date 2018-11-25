@@ -16,18 +16,16 @@ class GameBoard(tkinter.Tk):
         self.init_bkg()
         
         self.init_canvas()
-        self._canvas.pack()        
 
         if not self.food_exists:
            self.generate_food()
-           pass
-        
+
         self.create_snake()
+        self._canvas.pack()
 
         self.init_directions()
 
-        self.move_snake()        
-
+        
 
     def init_bkg(self):
         self.title("python snake")
@@ -69,39 +67,44 @@ class GameBoard(tkinter.Tk):
     def turn_up(self,event):
         if (self.snake_dir=="left" or self.snake_dir=="right"):
             self.snake_dir = "up"
-            self.headY += 25
+            self.tempY = self.tempY - 25
             print("pressed", repr(event.char))
+            self.move_snake()        
 
         else: pass
 
     def turn_down(self,event):
         if (self.snake_dir=="left" or self.snake_dir=="right"):
             self.snake_dir = "down"
-            self.headY -= 25
+            self.tempY = self.tempY + 25
             print("pressed", repr(event.char))
+            self.move_snake()        
 
         else: pass
 
     def turn_right(self,event):
         if (self.snake_dir=="up" or self.snake_dir=="down"):
             self.snake_dir = "right"
-            self.headX += 25
+            self.tempX = self.tempX + 25
             print("pressed", repr(event.char))
-
+            self.move_snake()        
         else: pass
         
     def turn_left(self,event):
         if (self.snake_dir=="up" or self.snake_dir=="down"):
             self.snake_dir = "left"
-            self.headX -= 25
+            self.tempX = self.tempX - 25
             print("pressed", repr(event.char))
-
+            self.move_snake()        
         else: pass
     
     def create_snake(self):
 
         self.headX = 15 * 25 
         self.headY = 8 * 25
+
+        self.tempX = 15 * 25
+        self.tempY = 8 * 25
 
         self.snake_coords = [[15*25,9*25],[15*25,10*25]]
 
@@ -119,17 +122,30 @@ class GameBoard(tkinter.Tk):
                 self.snake_coords[i][1]+25,
                 fill= "green")
 
+
     def move_snake(self):
-        for i in range(len(self.snake_parts)):
+
+        self._canvas.move(self.head, 
+            self.tempX - (self.headX), self.tempY - (self.headY))
+
+        '''
+        for i in range(len(self.snake_coords)):
             if i == 0:
                 self._canvas.move(self.snake_parts[i],
                     self.headX, self.headY)
             else:
                 self._canvas.move(self.snake_parts[i],
-                    self.snake_coords[i-1][0],
-                    self.snake_coords[i-1][1])
+                    self.snake_coords[i-1][0]-self.snake_coords[i][0],
+                    self.snake_coords[i-1][1]-self.snake_coords[i][1])
 
-        self._canvas.move(self.head, self.headX, self.headY)
+        self._canvas.move(self.head, self.tempX - self.headX,
+        self.tempY - self.headY)
+        '''
+
+        self.headX = self.tempX
+        self.headY = self.tempY
+        self._canvas.pack()        
+
 
     def grow_snake(self):
         pass
