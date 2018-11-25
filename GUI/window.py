@@ -38,11 +38,8 @@ class GameBoard(tkinter.Tk):
 
 
     def generate_food(self):
-        self.food_x = 0
-        self.food_y = 0
-        while not (self.food_x % 25) and not(self.food_y % 25):
-            self.food_x = round(600 * random.random())
-            self.food_y = round(400 * random.random())
+        self.food_x = 25*random.randint(0,23)
+        self.food_y = 25*random.randint(0,15)
 
         '''
         while check_food_collision(self.food_x):
