@@ -6,6 +6,8 @@ Will be done via tkinter mainly based on the repo below. I've tried to not copy 
 
 https://github.com/chuyangliu/Snake
 
+http://zetcode.com/gui/tkinter/snake/
+
 
 Will start by botch coding the initial positions of the snake and the "apple" right now, then try to create unit tests based on how much time I will have.
 
