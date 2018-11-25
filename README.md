@@ -5,6 +5,7 @@ I think this will hopefully be our 274 project. Currently working on creating th
 Will be done via tkinter mainly based on the repo below. I've tried to not copy anything, instead just using the ideas of how the game was created, etc. So far, I think the game mechanics could be fundamentally different based on the classes we will create.
 
 https://github.com/chuyangliu/Snake
+http://zetcode.com/gui/tkinter/snake/
 
 
 Will start by botch coding the initial positions of the snake and the "apple" right now, then try to create unit tests based on how much time I will have.
