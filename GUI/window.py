@@ -43,8 +43,11 @@ class GameBoard(tkinter.Tk):
         else:
             for i in range()
         '''
+
+
         self.food_x = 25*random.randint(0,23)
         self.food_y = 25*random.randint(0,15)
+
 
         '''
         while check_food_collision(self.food_x):
@@ -53,10 +56,12 @@ class GameBoard(tkinter.Tk):
         while check_food_collision(self.food_y):
             self._canvas.food_y = 400 * random.random()
         '''
+        
+        
         self.food = self._canvas.create_rectangle(self.food_x, 
             self.food_y, (self.food_x+25), 
             (self.food_y+25), fill="light green")
-
+        
 
 
         
@@ -73,7 +78,10 @@ class GameBoard(tkinter.Tk):
             self.tempY = self.tempY - 25
             
 
-            self.move_snake()        
+            self.move_snake()
+            if self.check_death():
+                self.destroy()
+
 
         else: pass
 
@@ -82,7 +90,9 @@ class GameBoard(tkinter.Tk):
             self.snake_dir = "down"
             self.tempY = self.tempY + 25
 
-            self.move_snake()        
+            self.move_snake()  
+            if self.check_death():
+                self.destroy()      
 
         else: pass
 
@@ -91,7 +101,10 @@ class GameBoard(tkinter.Tk):
             self.snake_dir = "right"
             self.tempX = self.tempX + 25
 
-            self.move_snake()        
+            self.move_snake() 
+
+            if self.check_death():
+                self.destroy()       
         else: pass
         
     def turn_left(self,event):
@@ -99,7 +112,10 @@ class GameBoard(tkinter.Tk):
             self.snake_dir = "left"
             self.tempX = self.tempX - 25
 
-            self.move_snake()        
+            self.move_snake()
+
+            if self.check_death():
+                self.destroy()        
         else: pass
     
     def create_snake(self):
@@ -111,7 +127,6 @@ class GameBoard(tkinter.Tk):
         self.tempY = 8 * 25
 
         self.snake_coords = [(15*25,  9*25, 15*25+25, 9*25+25), (15*25, 10*25, 15*25+25, 10*25+25), (15*25, 11*25, 15*25+25, 11*25+25)]
-        print("initial snake coords: ", self.snake_coords)
 
 
         self.head = self._canvas.create_rectangle(self.headX, 
@@ -129,15 +144,12 @@ class GameBoard(tkinter.Tk):
 
 
     def move_snake(self):
-
-
         self._canvas.move(self.head, 
             self.tempX - (self.headX), self.tempY - (self.headY))
 
         #to find coords of rectangles
         for i in range(len(self.snake_parts)):
             self.snake_coords[i] = self._canvas.coords(self.snake_parts[i])
-            print("tuple is: ", self.snake_coords[i])
 
         for i in range(len(self.snake_coords)):
             if i == 0:
@@ -174,11 +186,31 @@ class GameBoard(tkinter.Tk):
         '''
         self._canvas.pack()        
 
+    def check_death(self):
+        snake_death = False
+
+
+        if (self.headX < 0) or (self.headX >= 600):
+            snake_death = True
+        elif (self.headY < 0) or (self.headY >= 400):
+            snake_death = True 
+        else: pass
+
+        for i in range(len(self.snake_coords)):
+            if (self.headX == self.snake_coords[i][0]) and (self.headY == self.snake_coords[i][1]):
+                snake_death = True 
+            else: pass
+
+        return snake_death
+
+
 
     def exit_game(self,event):
         self.destroy()
         sys.exit()
 
     def run_game(self):
+
+        #self.check_death():
         self.mainloop()
         
