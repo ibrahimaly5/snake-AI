@@ -110,7 +110,8 @@ class GameBoard(tkinter.Tk):
         self.tempX = 15 * 25
         self.tempY = 8 * 25
 
-        self.snake_coords = [[15*25,9*25],[15*25,10*25]]
+        self.snake_coords = [(15*25,  9*25, 15*25+25, 9*25+25), (15*25, 10*25, 15*25+25, 10*25+25), (15*25, 11*25, 15*25+25, 11*25+25)]
+        print("initial snake coords: ", self.snake_coords)
 
 
         self.head = self._canvas.create_rectangle(self.headX, 
@@ -122,8 +123,8 @@ class GameBoard(tkinter.Tk):
             self.snake_parts[i] = self._canvas.create_rectangle(
                 self.snake_coords[i][0], 
                 self.snake_coords[i][1],
-                self.snake_coords[i][0]+25,
-                self.snake_coords[i][1]+25,
+                self.snake_coords[i][2],
+                self.snake_coords[i][3],
                 fill= "green")
 
 
@@ -133,7 +134,11 @@ class GameBoard(tkinter.Tk):
         self._canvas.move(self.head, 
             self.tempX - (self.headX), self.tempY - (self.headY))
 
-        '''
+        #to find coords of rectangles
+        for i in range(len(self.snake_parts)):
+            self.snake_coords[i] = self._canvas.coords(self.snake_parts[i])
+            print("tuple is: ", self.snake_coords[i])
+
         for i in range(len(self.snake_coords)):
             if i == 0:
                 self._canvas.move(self.snake_parts[i],
@@ -143,10 +148,12 @@ class GameBoard(tkinter.Tk):
                 self._canvas.move(self.snake_parts[i],
                     self.snake_coords[i-1][0]-(self.snake_coords[i][0]),
                     self.snake_coords[i-1][1]-(self.snake_coords[i][1]))
-        '''
+        
         self.headX = self.tempX
         self.headY = self.tempY
+        
 
+        '''
         old_length = len(self.snake_coords)
 
         if (self.headX == self.food_x) and (self.headY == self.food_y):
@@ -164,7 +171,7 @@ class GameBoard(tkinter.Tk):
 
             self.generate_food()
 
-
+        '''
         self._canvas.pack()        
 
 
