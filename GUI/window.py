@@ -72,11 +72,6 @@ class GameBoard(tkinter.Tk):
     def turn_up(self, event):
         if (self.snake_dir == "left" or self.snake_dir == "right"):
             self.snake_dir = "up"
-            self.tempY = self.tempY - 25
-
-            self.move_snake()
-            if self.check_death():
-                self.destroy()
 
         else:
             pass
@@ -84,11 +79,6 @@ class GameBoard(tkinter.Tk):
     def turn_down(self, event):
         if (self.snake_dir == "left" or self.snake_dir == "right"):
             self.snake_dir = "down"
-            self.tempY = self.tempY + 25
-
-            self.move_snake()
-            if self.check_death():
-                self.destroy()
 
         else:
             pass
@@ -96,24 +86,14 @@ class GameBoard(tkinter.Tk):
     def turn_right(self, event):
         if (self.snake_dir == "up" or self.snake_dir == "down"):
             self.snake_dir = "right"
-            self.tempX = self.tempX + 25
-
-            self.move_snake()
-
-            if self.check_death():
-                self.destroy()
+            
         else:
             pass
 
     def turn_left(self, event):
         if (self.snake_dir == "up" or self.snake_dir == "down"):
             self.snake_dir = "left"
-            self.tempX = self.tempX - 25
-
-            self.move_snake()
-
-            if self.check_death():
-                self.destroy()
+            
         else:
             pass
 
@@ -234,6 +214,9 @@ class GameBoard(tkinter.Tk):
             else:
                 pass
 
+        self._canvas.after(500, self.constant_move)
+        self._canvas.pack()
+
     def check_death(self):
         snake_death = False
 
@@ -260,5 +243,5 @@ class GameBoard(tkinter.Tk):
     def run_game(self):
 
         # self.check_death():
-        self.after(1000, self.constant_move)
+        self.constant_move()
         self.mainloop()
