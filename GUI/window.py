@@ -105,25 +105,9 @@ class GameBoard(tkinter.Tk):
         self.tempX = 15 * 25
         self.tempY = 8 * 25
 
-        self.snake_coords = [(15 *
-                              25, 9 *
-                              25, 15 *
-                              25 +
-                              25, 9 *
-                              25 +
-                              25), (15 *
-                                    25, 10 *
-                                    25, 15 *
-                                    25 +
-                                    25, 10 *
-                                    25 +
-                                    25), (15 *
-                                          25, 11 *
-                                          25, 15 *
-                                          25 +
-                                          25, 11 *
-                                          25 +
-                                          25)]
+        self.snake_coords = [(15 *25, 9 *25, 15 * 25 +25, 9 *25 +25),
+                             (15 *25, 10 * 25, 15 * 25 + 25, 10 * 25 + 25), 
+                             (15 * 25, 11 * 25, 15 * 25 + 25, 11 * 25 + 25)]
 
         self.head = self._canvas.create_rectangle(
             self.headX,
@@ -214,7 +198,7 @@ class GameBoard(tkinter.Tk):
             else:
                 pass
 
-        self._canvas.after(500, self.constant_move)
+        self._canvas.after(200, self.constant_move)
         self._canvas.pack()
 
     def check_death(self):
