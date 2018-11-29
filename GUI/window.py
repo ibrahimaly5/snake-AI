@@ -179,6 +179,7 @@ class GameBoard(tkinter.Tk):
 
             if self.check_death():
                 self.destroy()
+                return 0
 
         elif (self.snake_dir == "down"):
             self.tempY = self.tempY + 25
@@ -186,6 +187,7 @@ class GameBoard(tkinter.Tk):
 
             if self.check_death():
                 self.destroy()
+                return 0
 
         elif (self.snake_dir == "right"):
             self.tempX = self.tempX + 25
@@ -193,6 +195,7 @@ class GameBoard(tkinter.Tk):
             
             if self.check_death():
                 self.destroy()
+                return 0
 
         elif (self.snake_dir == "left"):
             self.tempX = self.tempX - 25
@@ -200,6 +203,7 @@ class GameBoard(tkinter.Tk):
 
             if self.check_death():
                 self.destroy()
+                return 0
 
 
         self._canvas.after(250, self.constant_move)
