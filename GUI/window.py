@@ -15,9 +15,10 @@ class GameBoard(tkinter.Tk):
 
         self.init_canvas()
 
-        self.generate_food()
 
         self.create_snake()
+        self.generate_food()
+
         self._canvas.pack()
 
         self.init_directions()
@@ -47,13 +48,11 @@ class GameBoard(tkinter.Tk):
         self.food_x = 25 * random.randint(0, 23)
         self.food_y = 25 * random.randint(0, 15)
 
-        '''
-        while check_food_collision(self.food_x):
-            self._canvas.food_x = 600 * random.random()
+        
+        while self.check_food_collision():
+            self.food_x = 25 * random.randint(0, 23)
+            self.food_y = 25 * random.randint(0, 15)
 
-        while check_food_collision(self.food_y):
-            self._canvas.food_y = 400 * random.random()
-        '''
 
         self.food = self._canvas.create_rectangle(
             self.food_x,
@@ -61,6 +60,13 @@ class GameBoard(tkinter.Tk):
             (self.food_x + 25),
             (self.food_y + 25),
             fill="light green")
+
+    def check_food_collision(self):
+        checking = False
+        for coord in self.snake_coords:
+            if (self.food_x == coord[0]) and (self.food_y == coord[1]):
+                checking = True
+        return checking
 
     def init_directions(self):
         self.bind("w", self.turn_up)
