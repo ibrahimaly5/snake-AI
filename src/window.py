@@ -10,6 +10,8 @@ class GameBoard(tkinter.Tk):
 
         self.snake_dir = "up"
         self.snake_parts = [None, None, None]
+        self.snake_length = 3
+
 
         self.init_bkg()
 
@@ -29,14 +31,11 @@ class GameBoard(tkinter.Tk):
         self.configure(background="black")
         self.resizable(width=False, height=False)
 
-    def init_canvas(self):
-        self._canvas = tkinter.Canvas(
-            self,
-            height=400,
-            width=600,
-            bg="black",
-            highlightthickness=0)
 
+    def init_canvas(self):
+        self._canvas = tkinter.Canvas(self, height=400, width=600, bg="black", highlightthickness=0)
+
+       
     def generate_food(self):
         '''
         if (self.food_x == self.headX) and (self.food_y == self.headY):
@@ -60,6 +59,10 @@ class GameBoard(tkinter.Tk):
             (self.food_x + 25),
             (self.food_y + 25),
             fill="light green")
+        
+        self.textbox = self._canvas.create_text(0,0,fill="white",font="Times 20 italic bold", anchor = "nw",
+                        text = "Score: {}".format(self.snake_length+1))
+        
 
     def check_food_collision(self):
         checking = False
@@ -115,7 +118,6 @@ class GameBoard(tkinter.Tk):
                              (15 *25, 10 * 25, 15 * 25 + 25, 10 * 25 + 25), 
                              (15 * 25, 11 * 25, 15 * 25 + 25, 11 * 25 + 25)]
 
-        self.snake_length = 3
 
         self.head = self._canvas.create_rectangle(
             self.headX,
@@ -174,8 +176,12 @@ class GameBoard(tkinter.Tk):
             self.snake_length += 1
 
             self._canvas.delete(self.food)
+            self._canvas.delete(self.textbox)
+
             self.generate_food()
         
+        #self.textbox = self._canvas.create_text(0,0,fill="white",font="Times 20 italic bold", anchor = "nw",
+                        #text = "Score: {}".format(self.snake_length+1))
         self._canvas.pack()
 
     def constant_move(self):
@@ -211,7 +217,6 @@ class GameBoard(tkinter.Tk):
                 self.destroy()
                 return 0
 
-
         self._canvas.after(250, self.constant_move)
         self._canvas.pack()
 
@@ -235,8 +240,8 @@ class GameBoard(tkinter.Tk):
         return snake_death
 
     def exit_game(self, event):
-        self.destroy()
         sys.exit()
+        self.destroy()
 
     def run_game(self):
 

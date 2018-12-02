@@ -1,4 +1,4 @@
-from GUI.window import GameBoard
+from src.window import GameBoard
 import random
 from time import sleep
 
