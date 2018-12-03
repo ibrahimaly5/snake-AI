@@ -238,6 +238,7 @@ class GameBoard(tkinter.Tk):
                 pass
 
         return snake_death
+    
 
     def exit_game(self, event):
         sys.exit()
