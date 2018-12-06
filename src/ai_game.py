@@ -4,7 +4,7 @@ import sys
 from time import sleep
 
 
-class GameBoard(tkinter.Tk):
+class ai_Game(tkinter.Tk):
     def __init__(self):
         tkinter.Tk.__init__(self)
 

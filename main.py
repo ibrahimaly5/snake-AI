@@ -1,4 +1,5 @@
-from src.window import GameBoard
+from src.ai_game import ai_Game
+from src.game import human_Game
 import random
 from time import sleep
 from tkinter import *
@@ -18,12 +19,13 @@ def callback1():
 
 def callback2():
 	root.destroy()
-	game_class = GameBoard()
-
+	game_class = human_Game()
 	game_class.run_game()
 
-def callback3():	
+def callback3():
 	root.destroy()
+	game_class = ai_Game()
+	game_class.run_game()
 
 
 def main():

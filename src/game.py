@@ -4,7 +4,7 @@ import sys
 import time
 
 
-class GameBoard(tkinter.Tk):
+class human_Game(tkinter.Tk):
     def __init__(self):
         tkinter.Tk.__init__(self)
 
