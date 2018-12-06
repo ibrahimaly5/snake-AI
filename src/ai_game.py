@@ -151,62 +151,6 @@ class ai_Game(tkinter.Tk):
 
         self._canvas.pack()
 
-    '''
-    def constant_move(self):
-        if (self.snake_dir == "up"):
-            self.tempY = self.tempY - 25
-            self.move_snake()
-
-            if self.move_counter < self.y_move_req:
-                self.move_counter += 1
-                self._canvas.pack()
-                self._canvas.after(250, self.constant_move)
-            if self.check_death():
-                self.destroy()
-                return 0
-
-        elif (self.snake_dir == "down"):
-            self.tempY = self.tempY + 25
-            self.move_snake()
-
-            if self.move_counter < self.y_move_req:
-                self.move_counter += 1
-                self._canvas.pack()
-                self._canvas.after(250, self.constant_move)
-
-            if self.check_death():
-                self.destroy()
-                return 0
-
-        elif (self.snake_dir == "right"):
-            self.tempX = self.tempX + 25
-            self.move_snake()
-
-            if self.move_counter < self.x_move_req:
-                self.move_counter += 1
-                self._canvas.pack()
-                self._canvas.after(250, self.constant_move)
-            if self.check_death():
-                self.destroy()
-                return 0
-
-
-        elif (self.snake_dir == "left"):
-            self.tempX = self.tempX - 25
-            self.move_snake()
-
-            if self.move_counter < self.x_move_req:
-                self.move_counter += 1
-                self._canvas.pack()
-                self._canvas.after(250, self.constant_move)
-
-            if self.check_death():
-                self.destroy()
-                return 0
-
-        self._canvas.after(250, self.constant_move)
-        self._canvas.pack()
-    '''
 
     def cross(self):
         if self.length_counter < 0:
@@ -301,12 +245,21 @@ class ai_Game(tkinter.Tk):
                 self.ai_snake()
 
     def ai_snake(self):
+        for i in range(len(self.snake_parts)):
+            self.snake_coords[i] = self._canvas.coords(self.snake_parts[i])
         self.shortest_path()
         self.movex_counter = 0
         self.movey_counter = 0
         self.length_counter = 0
         if (self.snake_dir == "up") or (self.snake_dir == "down"):
-            if self.x_move_req == 0:
+            if (
+                self.x_move_req == 0) and (
+                (self.y_move_req < 0) and ((
+                    (self.snake_coords[self.snake_length-1][1] -
+                     self.headY) > 0)) or (
+                (self.y_move_req > 0) and (
+                    (self.snake_coords[self.snake_length-1][1] -
+                     self.headY) > 0))):
                 self.length_counter -= 1
                 self.cross()
                 return
@@ -318,7 +271,14 @@ class ai_Game(tkinter.Tk):
 
         elif (self.snake_dir == "right") or (self.snake_dir == "left"):
             # ai snake up/down first
-            if self.y_move_req == 0:
+            if (
+                self.y_move_req == 0) and ((
+                (self.x_move_req < 0) and (
+                    (self.snake_coords[self.snake_length-1][0] -
+                     self.headX) > 0)) or (
+                (self.x_move_req > 0) and (
+                    (self.snake_coords[self.snake_length-1][0] -
+                     self.headX) > 0))):
                 self.length_counter += 1
                 self.cross()
                 return
