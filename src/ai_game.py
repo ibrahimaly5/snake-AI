@@ -152,7 +152,20 @@ class ai_Game(tkinter.Tk):
 
     #make the snake move vertically
     def move_vertically(self):
+        '''
+        if number of y moves required is <0 (i.e. up) make the snake's direction up and check if the snake
+        vertical counter has reached the number of y moves required.
+        If it has, check number of x moves required. Otherwise, go back to ai_snake() function
 
+        If the snake has not finished its vertical movements yet, add/subtract 25 (moving 1 point)
+        to the tempY variable to move the snake up/down. 
+
+        Edge case: check if the snake will die if it moves up/down once. If it does,
+        move left/right depending on where the snake won't die. Then, start moving vertically again.
+        
+        Edge case: If the food has been regenerated on the opposite side/direction of the x-axis as the snake (same y-value),
+        Then move up/down one time, and call the horizontal move function.
+        '''
         if (self.y_move_req < 0):
             self.snake_dir = "up"
             if self.movey_counter < abs(self.y_move_req):
@@ -220,7 +233,20 @@ class ai_Game(tkinter.Tk):
 
     #make the snake move horizontally
     def move_horizontally(self):
+        '''
+        if number of x moves required is <0 (i.e. left) make the snake's direction left and check if the snake
+        horizontal counter has reached the number of x moves required.
+        If it has, check number of x moves required. Otherwise, go back to ai_snake() function
 
+        If the snake has not finished its horizontal movements yet, add/subtract 25 (moving 1 point)
+        to the tempX variable to move the snake left/right. 
+
+        Edge case: check if the snake will die if it moves left/right once. If it does,
+        move up/down depending on where the snake won't die. Then, start moving horizontally again.
+        
+        Edge case: If the food has been regenerated on the opposite side/direction of the y-axis as the snake (same x-value),
+        Then move left/right one time, and call the vertical move function.
+        '''
         if (self.x_move_req < 0):
             self.snake_dir = "left"
             if self.movex_counter < abs(self.x_move_req):
