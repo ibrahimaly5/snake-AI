@@ -6,27 +6,27 @@ CMPUT 274, Fall 2018
 Project :Snake-AI
 
 Included Files :
-    *main.py
-    *ai_game.py
-    *game.py
-    *README
+    main.py
+    ai_game.py
+    game.py
+    README
 
 Running Instructions :
-1.To Run the file
-	*Run the command "python3 main.py" in the files directory.
+1.To Run the game:
+	Clone the repository and run command "python3 main.py" in the files directory.
 
 2.Select one of the 3 options (as mentioned below) presented in the game's main menu screen.
-	*Single Player 
-	*AI
-	*Quit
+	-Single Player 
+	-AI
+	-Quit
 
 3.The 3 options lead to 3 different outputs ,as follows :
 
-	*Single Player:	Opens a screen running the traditional game of snake and food, where the player is able to control the movement of the snake using WASD keys i.e. UP,LEFT,DOWN,RIGHT respectively.
+	-Single Player:	Opens a screen running the traditional game of snake and food, where the player is able to control the movement of the snake using WASD keys i.e. UP,LEFT,DOWN,RIGHT respectively.
 
-	*AI: Opens a screen where the snake moves by itself to achieve the game's goal of eating the food.This AI uses the shortest path possible to reach the food		
+	-AI: Opens a screen where the snake moves by itself to achieve the game's goal of eating the food.This AI uses the shortest path possible to reach the food		
 
-	*Quit : Exits the game ,closes the window.
+	-Quit : Exits the game ,closes the window.
 
 Notes and Assumptions :
 
@@ -34,57 +34,57 @@ There are 3 python files used in this project :
 
 main.py: This is the file to be run using python , contains the mainloop and runs the other files. Also creates the root tkinter class
 
-	*callback functions : These functions contain the calls to the 3 options in the menu, they are called when the respective button is pressed.
+	-callback functions : These functions contain the calls to the 3 options in the menu, they are called when the respective button is pressed.
 
-	*main function : Creates a frame to display the buttons connected to the 3 options.
+	-main function : Creates a frame to display the buttons connected to the 3 options.
 
 Common functions between human and AI:
 
-	*Initializing functions : First initializes the class itself, continues to declare variables required to start the game, Creates the display canvas which contains all the necessary elements of the game. Call functions necessary to continue the gameplay.
+	-Initializing functions : First initializes the class itself, continues to declare variables required to start the game, Creates the display canvas which contains all the necessary elements of the game. Call functions necessary to continue the gameplay.
 
-	*generate_food : When initially called, randomly creates a green food block on the canvas(but not on the snake). When the food is eaten , this function is called again and again.
+	-generate_food : When initially called, randomly creates a green food block on the canvas(but not on the snake). When the food is eaten , this function is called again and again.
 
-	*check_food_collision : When called ,it runs compares the positions of the snake parts and the food , and returns TRUE or FALSE.
+	-check_food_collision : When called ,it runs compares the positions of the snake parts and the food , and returns TRUE or FALSE.
 
-	*create_snake : Creates the snake head and 3 snake parts for a start using canvas module.
+	-create_snake : Creates the snake head and 3 snake parts for a start using canvas module.
 
-	*move_snake : Obtains the current position of the snake and the change of the head snake coordinates , then moves the head to this position and in turn shifts all parts of the snake ,imitating the movement of the snake. If the food is eaten in this movement ,then the food is removed and randomly created again.
+	-move_snake : Obtains the current position of the snake and the change of the head snake coordinates , then moves the head to this position and in turn shifts all parts of the snake ,imitating the movement of the snake. If the food is eaten in this movement ,then the food is removed and randomly created again.
 
-	*check death : compares the x and y coordinates of a point to the outer region of the canvas and the positions of the snake parts. return TRUE or FALSE.
+	-check death : compares the x and y coordinates of a point to the outer region of the canvas and the positions of the snake parts. return TRUE or FALSE.
 
-	*exit_game : exits the game and closes the window.
+	-exit_game : exits the game and closes the window.
 
-	*run_game : calls the constant move function and mainloop function.
+	-run_game : calls the constant move function and mainloop function.
 
 
 Functions specific to human-based game.py : 
 This file contains the human_Game class created to run the traditional game of snake and food.
 
-	*constant_move : Using after function from the canvas module , this function is called continuously with time delay. Increments the temporary position in the direction of the snake.
+	-constant_move : Using after function from the canvas module , this function is called continuously with time delay. Increments the temporary position in the direction of the snake.
 
-	*init_directions : Binds the WASD and Esc buttons to the respective commands.
+	-init_directions : Binds the WASD and Esc buttons to the respective commands.
 
-	*turn (up,down,right,left) : When called by the respective binded button , this function turns the snake up,down,right,left wiht necessary conditions.
+	-turn (up,down,right,left) : When called by the respective binded button , this function turns the snake up,down,right,left wiht necessary conditions.
 
 Functions specific to computer-based ai_game.py: This file contains the ai_Game class created to run the game using an AI (shortest distance algorithm) of snake and food.
 
-	*shortest_path : Calculates the shortest path for the x and y axes and returns the number of x and y moves required.
+-shortest_path : Calculates the shortest path for the x and y axes and returns the number of x and y moves required.
 
-	*move_vertically:
-		If number of y moves required is <0 (i.e. up) make the snake's direction up and check if the snake vertical counter has reached the number of y moves required. If it has, check number of x moves required. Otherwise, go back to ai_snake() function. If the snake has not finished its vertical movements yet, add/subtract 25 (moving 1 point) to the tempY variable to move the snake up/down. 
+-move_vertically:
+	If number of y moves required is <0 (i.e. up) make the snake's direction up and check if the snake vertical counter has reached the number of y moves required. If it has, check number of x moves required. Otherwise, go back to ai_snake() function. If the snake has not finished its vertical movements yet, add/subtract 25 (moving 1 point) to the tempY variable to move the snake up/down. 
 
-        Edge case: check if the snake will die if it moves up/down once. If it does, move left/right depending on where the snake won't die. Then, start moving vertically again.
-        
-        Edge case: If the food has been regenerated on the opposite side/direction of the x-axis as the snake (same y-value), Then move up/down one time, and call the horizontal move function.
-	
-	*move_horizontally: 
-		If number of x moves required is <0 (i.e. left) make the snake's direction left and check if the snake horizontal counter has reached the number of x moves required. If it has, check number of y moves required. Otherwise, go back to ai_snake() function
+	Edge case: check if the snake will die if it moves up/down once. If it does, move left/right depending on where the snake won't die. Then, start moving vertically again.
 
-        If the snake has not finished its horizontal movements yet, add/subtract 25 (moving 1 point) to the tempX variable to move the snake left/right. 
+	Edge case: If the food has been regenerated on the opposite side/direction of the x-axis as the snake (same y-value), Then move up/down one time, and call the horizontal move function.
 
-        Edge case: check if the snake will die if it moves left/right once. If it does, move up/down depending on where the snake won't die. Then, start moving horizontally again.
-        
-        Edge case: If the food has been regenerated on the opposite side/direction of the y-axis as the snake (same x-value), Then move left/right one time, and call the vertical move function.
-	
-	*ai_snake:
-		Function that initiaites the snake's movement and sets its path to the food finds the shortest path, initiates counters for how many movements the snake has moved then calls the snake's move commands (vertically and horizontally)
+-move_horizontally: 
+	If number of x moves required is <0 (i.e. left) make the snake's direction left and check if the snake horizontal counter has reached the number of x moves required. If it has, check number of y moves required. Otherwise, go back to ai_snake() function
+
+	If the snake has not finished its horizontal movements yet, add/subtract 25 (moving 1 point) to the tempX variable to move the snake left/right. 
+
+	Edge case: check if the snake will die if it moves left/right once. If it does, move up/down depending on where the snake won't die. Then, start moving horizontally again.
+
+	Edge case: If the food has been regenerated on the opposite side/direction of the y-axis as the snake (same x-value), Then move left/right one time, and call the vertical move function.
+
+-ai_snake:
+	Function that initiaites the snake's movement and sets its path to the food finds the shortest path, initiates counters for how many movements the snake has moved then calls the snake's move commands (vertically and horizontally)
